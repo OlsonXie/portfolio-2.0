@@ -34,14 +34,20 @@ export function SusScore() {
           score="50–74"
           grade="Poor"
           tone="#b4232f"
-          image={{ src: "/work/bris-sus-before.webp", alt: "The old Bris site on mobile", w: 371, h: 335 }}
+          images={[
+            { src: "/work/bris-old1.webp", alt: "The old Bris start page on mobile", w: 640, h: 1118 },
+            { src: "/work/bris-old2.webp", alt: "The old Bris donation page on mobile", w: 640, h: 1133 },
+          ]}
         />
         <ScoreCard
           tag="After"
           score="81.6"
           grade="Excellent"
           tone="#1d6446"
-          image={{ src: "/work/bris-sus-after.webp", alt: "The redesigned Bris site on mobile", w: 260, h: 335 }}
+          images={[
+            { src: "/work/bris-m3.webp", alt: "The redesigned Bris start page", w: 640, h: 1387 },
+            { src: "/work/bris-m7.webp", alt: "The redesigned topic page about sleep", w: 640, h: 1387 },
+          ]}
         />
       </div>
 
@@ -70,18 +76,28 @@ function ScoreCard({
   score,
   grade,
   tone,
-  image,
+  images,
 }: {
   tag: string;
   score: string;
   grade: string;
   tone: string;
-  image: { src: string; alt: string; w: number; h: number };
+  images: { src: string; alt: string; w: number; h: number }[];
 }) {
   return (
     <Frame bg="pink" className="flex flex-col">
-      <div className="flex items-center justify-center px-6 pb-2 pt-8">
-        <Image src={image.src} alt={image.alt} width={image.w} height={image.h} sizes="300px" className="h-[200px] w-auto lg:h-[240px]" />
+      <div className="flex items-start justify-center gap-3 px-6 pb-2 pt-8">
+        {images.map((img) => (
+          <Image
+            key={img.src}
+            src={img.src}
+            alt={img.alt}
+            width={img.w}
+            height={img.h}
+            sizes="160px"
+            className="h-[220px] w-auto rounded-md shadow-[0_10px_24px_-10px_rgba(0,0,0,0.35)] ring-1 ring-black/5 lg:h-[260px]"
+          />
+        ))}
       </div>
       <figcaption className="flex items-end justify-between gap-3 p-5 lg:p-6">
         <span className="text-sm font-medium uppercase tracking-wide text-ink-muted">{tag}</span>

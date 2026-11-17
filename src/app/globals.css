@@ -79,26 +79,12 @@ body {
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }
-/* Vertical metal fader for the record player */
-.volume-fader {
+/* Invisible vertical range input laid over the drawn volume fader */
+.volume-hit {
   writing-mode: vertical-lr;
   direction: rtl;
   appearance: none;
-  background: transparent;
-  width: 100%;
-  cursor: pointer;
-}
-.volume-fader::-webkit-slider-runnable-track { width: 4px; background: #000; border-radius: 2px; margin: 0 auto; }
-.volume-fader::-moz-range-track { width: 4px; background: #000; border-radius: 2px; }
-.volume-fader::-webkit-slider-thumb {
-  appearance: none; width: 26px; height: 16px; margin-left: -11px; border-radius: 3px;
-  background: repeating-linear-gradient(180deg, #fafafa 0 2px, #9b9b9b 2px 3px);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
-}
-.volume-fader::-moz-range-thumb {
-  width: 26px; height: 16px; border: 0; border-radius: 3px;
-  background: repeating-linear-gradient(180deg, #fafafa 0 2px, #9b9b9b 2px 3px);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  margin: 0;
 }
 
 @keyframes float {

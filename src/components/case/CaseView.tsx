@@ -90,7 +90,9 @@ export function CaseView({ c }: { c: Case }) {
                 }
                 return (
                   <Frame key={i} bg={b.bg} className="px-[6%] py-[8%]">
-                    <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:gap-6">
+                    <div
+                      className={`grid grid-cols-2 gap-4 lg:gap-6 ${b.images.length === 3 ? "sm:grid-cols-3" : "sm:grid-cols-4"}`}
+                    >
                       {b.images.map((img) => (
                         <Image
                           key={img.src}
@@ -99,7 +101,7 @@ export function CaseView({ c }: { c: Case }) {
                           width={img.w}
                           height={img.h}
                           sizes="(min-width: 1024px) 14vw, 45vw"
-                          className="h-auto w-full rounded-lg shadow-[0_14px_30px_-12px_rgba(0,0,0,0.4)]"
+                          className={`h-auto w-full ${b.plain ? "" : "rounded-lg shadow-[0_14px_30px_-12px_rgba(0,0,0,0.4)]"}`}
                         />
                       ))}
                     </div>
