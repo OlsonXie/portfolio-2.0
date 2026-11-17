@@ -42,7 +42,8 @@ function loadYouTubeApi() {
  * through a hidden YouTube player: start/stop, next track and volume.
  */
 export function Turntable() {
-  const playlist = site.youtubePlaylistId;
+  const { playlistId, videoId } = site.youtube;
+  const source = playlistId || videoId;
   const wrap = useRef<HTMLDivElement>(null);
   const host = useRef<HTMLDivElement>(null);
   const player = useRef<YTPlayer | null>(null);
@@ -53,7 +54,7 @@ export function Turntable() {
 
   // Load the player once the turntable scrolls into view, so "play" can start instantly
   useEffect(() => {
-    if (!playlist || !wrap.current) return;
+    if (!source || !wrap.current) return;
     let cancelled = false;
     const io = new IntersectionObserver(async ([entry]) => {
       if (!entry.isIntersecting || player.current) return;
@@ -64,7 +65,9 @@ export function Turntable() {
         host: "https://www.youtube-nocookie.com",
         height: "1",
         width: "1",
-        playerVars: { listType: "playlist", list: playlist, controls: 0, playsinline: 1 },
+        ...(playlistId
+          ? { playerVars: { listType: "playlist", list: playlistId, controls: 0, playsinline: 1 } }
+          : { videoId, playerVars: { loop: 1, playlist: videoId, controls: 0, playsinline: 1 } }),
         events: {
           onReady: () => {
             player.current?.setVolume(volume);
@@ -90,7 +93,7 @@ export function Turntable() {
       player.current = null;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [playlist]);
+  }, [source]);
 
   const toggle = useCallback(() => {
     if (!player.current || !ready) {
@@ -107,7 +110,7 @@ export function Turntable() {
     player.current?.setVolume(v);
   };
 
-  const status = !playlist
+  const status = !source
     ? "Hall of Fame playlist is on its way."
     : !ready
       ? "Warming up the needle…"
@@ -175,7 +178,7 @@ export function Turntable() {
         <button
           type="button"
           onClick={() => player.current?.nextVideo()}
-          disabled={!ready}
+          disabled={!ready || !playlistId}
           aria-label="Next track"
           className="absolute left-[3%] top-[7%] grid aspect-square w-[9%] place-items-center rounded-full bg-gradient-to-b from-[#f5f5f5] to-[#a9a9a9] text-[#333] shadow-[0_2px_4px_rgba(0,0,0,0.35)] transition active:scale-95 disabled:opacity-60"
         >

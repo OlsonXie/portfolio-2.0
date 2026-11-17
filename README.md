@@ -23,7 +23,7 @@ npm run build
 | What | File |
 |---|---|
 | Colour tokens (`--block-{hue}-{soft\|deep}`), frame backgrounds | `src/app/globals.css` |
-| Links, intro, photos, Instagram selection, **YouTube playlist ID** | `src/lib/site.ts` |
+| Links, intro, photos, Instagram selection, **YouTube music** | `src/lib/site.ts` |
 | Case studies (all use one template) | `src/lib/cases.ts` |
 | Bento grid, drag/swap, open panel | `src/components/bento/` |
 | Case template, image frames, SUS score | `src/components/case/` |
@@ -43,7 +43,7 @@ Frame backgrounds: `grey`, `blue`, `dark`, `pink`. Put images in `public/work/` 
 
 ### Record player
 
-Set `youtubePlaylistId` in `src/lib/site.ts` to the ID after `list=` in the YouTube playlist URL. Until then the record spins but no music plays.
+Set `youtube.playlistId` in `src/lib/site.ts` to the ID after `list=` in a YouTube playlist URL (enables "next track"). Without a playlist, `youtube.videoId` plays a single video on loop.
 
 ### Instagram
 

@@ -10,10 +10,11 @@ export const site = {
     email: "mailto:tomson.olson@gmail.com",
   },
   /**
-   * YouTube playlist ID for the Vinyl hunt Hall of Fame
-   * (the part after `list=` in the playlist URL). Empty = player shows "coming soon".
+   * Music for the record player (Vinyl hunt Hall of Fame).
+   * playlistId: the part after `list=` in a YouTube playlist URL — preferred, enables "next track".
+   * videoId: a single video, used (and looped) when no playlist is set.
    */
-  youtubePlaylistId: "",
+  youtube: { playlistId: "", videoId: "zko1a48RSlU" },
 };
 
 export const photos = [
