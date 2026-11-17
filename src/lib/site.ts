@@ -14,7 +14,7 @@ export const site = {
    * playlistId: the part after `list=` in a YouTube playlist URL — preferred, enables "next track".
    * videoId: a single video, used (and looped) when no playlist is set.
    */
-  youtube: { playlistId: "", videoId: "zko1a48RSlU" },
+  youtube: { playlistId: "PLXTpj0eKzro8", videoId: "zko1a48RSlU" },
 };
 
 export const photos = [
