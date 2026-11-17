@@ -33,7 +33,7 @@ export function InstaCarousel() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35 }}
           >
-            <Image src={pics[i].src} alt={pics[i].alt} fill sizes="(min-width: 1024px) 18vw, 50vw" className="object-cover" />
+            <Image src={pics[i].src} alt={pics[i].alt} fill sizes="(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw" className="object-cover" />
           </motion.div>
         </AnimatePresence>
 

@@ -33,7 +33,7 @@ export default function About() {
           </section>
         </div>
 
-        <div className="mt-16 grid items-start gap-[var(--gap)] sm:grid-cols-[minmax(0,1fr)_minmax(0,2.4fr)] lg:mt-24">
+        <div className="mt-16 grid items-start gap-10 sm:grid-cols-2 sm:gap-12 lg:mt-24">
           <InstaCarousel />
           <div>
             <Turntable />
