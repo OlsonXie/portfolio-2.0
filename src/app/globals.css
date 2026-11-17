@@ -1,26 +1,114 @@
 @import "tailwindcss";
+@import "@fontsource-variable/inter";
 
+/* ------------------------------------------------------------------
+   Design tokens
+   Block colors follow --block-{hue}-{soft|deep}. Soft tones carry ink
+   text, deep tones carry white text (all ≥ 4.5:1).
+------------------------------------------------------------------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-page: #e7e6e3;
+  --color-paper: #f6f5f2;
+  --color-ink: #151515;
+  --color-ink-muted: #5c5b57;
+  --color-line: #d8d6d0;
+
+  --block-paper: var(--color-paper);
+  --block-cobalt-soft: #c9d4fa;
+  --block-sage-soft: #bfdccb;
+  --block-orchid-soft: #e6cdea;
+  --block-clay-soft: #ebc9c6;
+  --block-cobalt-deep: #1f47d1;
+  --block-forest-deep: #1d6446;
+  --block-plum-deep: #8e3a8a;
+  --block-oxblood-deep: #7a1e2b;
+
+  --frame-grey: #ebeae6;
+  --frame-blue: #dfe5fb;
+  --frame-dark: #1e1b26;
+  --frame-pink: #fcebf1;
+
+  --radius-tile: 12px;
+  --gap: 12px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --color-page: var(--color-page);
+  --color-paper: var(--color-paper);
+  --color-ink: var(--color-ink);
+  --color-ink-muted: var(--color-ink-muted);
+  --color-line: var(--color-line);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--color-page);
+  color: var(--color-ink);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Tile tones: a tile sets data-tone and gets both background and text color */
+[data-tone] {
+  background: var(--tone-bg);
+  color: var(--tone-fg);
+  --tone-fg-muted: color-mix(in srgb, var(--tone-fg) 72%, transparent);
+  transition: background-color 400ms var(--ease-out), color 400ms var(--ease-out);
+}
+[data-tone="paper"] { --tone-bg: var(--block-paper); --tone-fg: var(--color-ink); }
+[data-tone="cobalt-soft"] { --tone-bg: var(--block-cobalt-soft); --tone-fg: #1a2e7a; }
+[data-tone="sage-soft"] { --tone-bg: var(--block-sage-soft); --tone-fg: #173f2c; }
+[data-tone="orchid-soft"] { --tone-bg: var(--block-orchid-soft); --tone-fg: #4e1f52; }
+[data-tone="clay-soft"] { --tone-bg: var(--block-clay-soft); --tone-fg: #5a1820; }
+[data-tone="cobalt-deep"] { --tone-bg: var(--block-cobalt-deep); --tone-fg: #fff; }
+[data-tone="forest-deep"] { --tone-bg: var(--block-forest-deep); --tone-fg: #fff; }
+[data-tone="plum-deep"] { --tone-bg: var(--block-plum-deep); --tone-fg: #fff; }
+[data-tone="oxblood-deep"] { --tone-bg: var(--block-oxblood-deep); --tone-fg: #fff; }
+
+/* Returning visitors with a saved layout: hide the grid until it is applied */
+.bento-pending [data-bento] { opacity: 0; }
+[data-bento] { transition: opacity 250ms ease; }
+
+:focus-visible {
+  outline: 2px solid var(--block-cobalt-deep);
+  outline-offset: 3px;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+/* Vertical metal fader for the record player */
+.volume-fader {
+  writing-mode: vertical-lr;
+  direction: rtl;
+  appearance: none;
+  background: transparent;
+  width: 100%;
+  cursor: pointer;
+}
+.volume-fader::-webkit-slider-runnable-track { width: 4px; background: #000; border-radius: 2px; margin: 0 auto; }
+.volume-fader::-moz-range-track { width: 4px; background: #000; border-radius: 2px; }
+.volume-fader::-webkit-slider-thumb {
+  appearance: none; width: 26px; height: 16px; margin-left: -11px; border-radius: 3px;
+  background: repeating-linear-gradient(180deg, #fafafa 0 2px, #9b9b9b 2px 3px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+.volume-fader::-moz-range-thumb {
+  width: 26px; height: 16px; border: 0; border-radius: 3px;
+  background: repeating-linear-gradient(180deg, #fafafa 0 2px, #9b9b9b 2px 3px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

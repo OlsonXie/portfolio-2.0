@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio 2.0 — Oscar Olson Xie
 
-## Getting Started
+A customizable bento portfolio. Visitors can drag blocks around, change their colours and swap the profile photo; the layout is saved in their browser. Opening a block (Selected work, About, Extras) grows it into a scrollable panel from wherever it sits, while Picture and Links stay put beside it.
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router, Cache Components) + TypeScript
+- **Tailwind CSS 4** + CSS custom properties as design tokens (`src/app/globals.css`)
+- **dnd-kit** for drag-and-drop, **Motion** for layout/shared-element animations
+- Self-hosted **Inter** via `@fontsource-variable/inter`
+- Deploy: **Vercel** (import this repo, no config needed)
+
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Where things live
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| What | File |
+|---|---|
+| Colour tokens (`--block-{hue}-{soft\|deep}`), frame backgrounds | `src/app/globals.css` |
+| Links, intro, photos, Instagram selection, **YouTube playlist ID** | `src/lib/site.ts` |
+| Case studies (all use one template) | `src/lib/cases.ts` |
+| Bento grid, drag/swap, open panel | `src/components/bento/` |
+| Case template, image frames, SUS score | `src/components/case/` |
+| Instagram carousel, record player | `src/components/about/` |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Add or edit a case
 
-## Learn More
+Add an entry to `cases` in `src/lib/cases.ts`. Blocks are rendered in order:
 
-To learn more about Next.js, take a look at the following resources:
+- `{ kind: "text", label, body }`
+- `{ kind: "frame", layout: "full", bg, image, fit?, shadow? }` — one frame, full width
+- `{ kind: "frame", layout: "pair", bg, images: [a, b], fit?, blend? }` — two frames side by side
+- `{ kind: "frame", layout: "row", bg, images }` — several screens in one frame
+- `{ kind: "illustrations", images }`, `{ kind: "sus" }`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Frame backgrounds: `grey`, `blue`, `dark`, `pink`. Put images in `public/work/` (WebP).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Record player
 
-## Deploy on Vercel
+Set `youtubePlaylistId` in `src/lib/site.ts` to the ID after `list=` in the YouTube playlist URL. Until then the record spins but no music plays.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Instagram
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`public/insta/01.webp … 13.webp` — a random 6 are shown per visit. Replace or add files and update the count in `src/lib/site.ts`.
