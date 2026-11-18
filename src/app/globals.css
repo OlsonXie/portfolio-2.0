@@ -57,7 +57,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Tile tones: a tile sets data-tone and gets both background and text color */
+/* Block tones: a block sets data-tone and gets both background and text color */
 [data-tone] {
   background: var(--tone-bg);
   color: var(--tone-fg);
@@ -66,14 +66,6 @@ body {
 }
 [data-tone="paper"] { --tone-bg: var(--block-paper); --tone-fg: var(--color-ink); }
 [data-tone="signal"] { --tone-bg: var(--block-signal); --tone-fg: var(--color-ink); }
-[data-tone="cobalt-soft"] { --tone-bg: var(--block-cobalt-soft); --tone-fg: #1a2e7a; }
-[data-tone="sage-soft"] { --tone-bg: var(--block-sage-soft); --tone-fg: #173f2c; }
-[data-tone="orchid-soft"] { --tone-bg: var(--block-orchid-soft); --tone-fg: #4e1f52; }
-[data-tone="clay-soft"] { --tone-bg: var(--block-clay-soft); --tone-fg: #5a1820; }
-[data-tone="cobalt-deep"] { --tone-bg: var(--block-cobalt-deep); --tone-fg: #fff; }
-[data-tone="forest-deep"] { --tone-bg: var(--block-forest-deep); --tone-fg: #fff; }
-[data-tone="plum-deep"] { --tone-bg: var(--block-plum-deep); --tone-fg: #fff; }
-[data-tone="oxblood-deep"] { --tone-bg: var(--block-oxblood-deep); --tone-fg: #fff; }
 
 /* Type scale from Figma (sizes at 1728px): eyebrow 24 · display 60 · body 20 */
 .t-eyebrow {
@@ -95,9 +87,6 @@ body {
   letter-spacing: -0.01em;
 }
 
-/* Returning visitors with a saved layout: hide the grid until it is applied */
-.bento-pending [data-bento] { opacity: 0; }
-[data-bento] { transition: opacity 250ms ease; }
 
 :focus-visible {
   outline: 2px solid var(--stroke);
