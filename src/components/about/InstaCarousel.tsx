@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "motion/react";
 import { instagram, site } from "@/lib/site";
+import { PageDots } from "@/components/PageDots";
 
 const COUNT = 6;
 
@@ -40,11 +41,7 @@ export function InstaCarousel() {
         <button type="button" onClick={() => go(-1)} aria-label="Previous photo" className="absolute inset-y-0 left-0 w-1/2 cursor-w-resize" />
         <button type="button" onClick={() => go(1)} aria-label="Next photo" className="absolute inset-y-0 right-0 w-1/2 cursor-e-resize" />
 
-        <div className="pointer-events-none absolute inset-x-0 bottom-3 flex justify-center gap-1.5" aria-hidden>
-          {pics.map((p, k) => (
-            <span key={p.src} className={`size-1.5 rounded-full transition ${k === i ? "bg-white" : "bg-white/45"}`} />
-          ))}
-        </div>
+        <PageDots count={pics.length} current={i} onSelect={setI} label="Choose Instagram photo" />
       </div>
       <figcaption className="mt-3 flex items-center justify-between text-sm">
         <span>Selection of Insta</span>

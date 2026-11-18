@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, type PanInfo } from "motion/react";
 import { photos } from "@/lib/site";
+import { PageDots } from "@/components/PageDots";
 
 const SWIPE_DISTANCE = 60; // px
 const SWIPE_VELOCITY = 400; // px/s
@@ -85,28 +86,16 @@ export function PhotoSwitcher({ index, onChange }: { index: number; onChange: (i
         </AnimatePresence>
       </button>
 
-      {count > 1 && (
-        <div role="group" aria-label="Choose photo" className="absolute inset-x-0 bottom-3 z-10 flex justify-center">
-          {photos.map((ph, i) => (
-            <button
-              key={ph.src}
-              type="button"
-              onClick={() => {
-                if (i === current) return;
-                setDir(i > current ? 1 : -1);
-                onChange(i);
-              }}
-              aria-label={`Show photo ${i + 1} of ${count}`}
-              aria-pressed={i === current}
-              className="grid size-6 place-items-center"
-            >
-              <span
-                className={`size-2 rounded-full shadow-[0_0_3px_rgba(0,0,0,0.45)] transition ${i === current ? "bg-white" : "bg-white/50 hover:bg-white/80"}`}
-              />
-            </button>
-          ))}
-        </div>
-      )}
+      <PageDots
+        count={count}
+        current={current}
+        label="Choose photo"
+        onSelect={(i) => {
+          if (i === current) return;
+          setDir(i > current ? 1 : -1);
+          onChange(i);
+        }}
+      />
     </>
   );
 }
