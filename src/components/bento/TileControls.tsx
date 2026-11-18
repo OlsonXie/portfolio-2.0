@@ -46,7 +46,7 @@ export function TileControls({ label, tone, onTone, onMove, onReset, extra }: Pr
         aria-expanded={open}
         aria-controls={id}
         onClick={() => setOpen((o) => !o)}
-        className="grid size-9 place-items-center rounded-full bg-white/85 text-ink shadow-sm backdrop-blur transition hover:bg-white"
+        className="grid size-9 place-items-center border border-[var(--stroke)] bg-white text-ink transition hover:bg-ink hover:text-white"
       >
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
           <circle cx="13.5" cy="6.5" r="1.5" fill="currentColor" />
@@ -61,7 +61,7 @@ export function TileControls({ label, tone, onTone, onMove, onReset, extra }: Pr
           id={id}
           role="dialog"
           aria-label={`${label} block settings`}
-          className="absolute right-0 top-11 w-[232px] rounded-xl bg-white p-3 text-ink shadow-lg ring-1 ring-black/5"
+          className="absolute right-0 top-11 w-[252px] border border-[var(--stroke)] bg-white p-3 text-ink"
         >
           <p className="mb-2 text-xs font-medium uppercase tracking-wide text-ink-muted">Colour</p>
           <div className="grid grid-cols-5 gap-2" role="radiogroup" aria-label="Block colour">
@@ -75,20 +75,20 @@ export function TileControls({ label, tone, onTone, onMove, onReset, extra }: Pr
                 title={TONE_LABEL[t]}
                 data-tone={t}
                 onClick={() => onTone(t)}
-                className={`size-9 rounded-full ring-1 ring-black/10 transition ${tone === t ? "outline-2 outline-offset-2 outline-ink" : "hover:scale-110"}`}
+                className={`size-9 border border-[var(--stroke)] transition ${tone === t ? "outline-2 outline-offset-2 outline-ink" : "hover:scale-110"}`}
               />
             ))}
           </div>
           <p className="mb-2 mt-4 text-xs font-medium uppercase tracking-wide text-ink-muted">Position</p>
           <div className="flex gap-2">
-            <button type="button" onClick={() => onMove(-1)} className="flex-1 rounded-lg bg-page px-2 py-2 text-sm hover:bg-line">
+            <button type="button" onClick={() => onMove(-1)} className="flex-1 border border-[var(--stroke)] px-2 py-2 text-sm hover:bg-ink hover:text-white">
               ← Earlier
             </button>
-            <button type="button" onClick={() => onMove(1)} className="flex-1 rounded-lg bg-page px-2 py-2 text-sm hover:bg-line">
+            <button type="button" onClick={() => onMove(1)} className="flex-1 border border-[var(--stroke)] px-2 py-2 text-sm hover:bg-ink hover:text-white">
               Later →
             </button>
           </div>
-          <button type="button" onClick={onReset} className="mt-3 w-full rounded-lg px-2 py-1.5 text-sm text-ink-muted underline-offset-2 hover:underline">
+          <button type="button" onClick={onReset} className="mt-3 w-full px-2 py-1.5 text-sm text-ink-muted underline-offset-2 hover:underline">
             Reset layout
           </button>
         </div>

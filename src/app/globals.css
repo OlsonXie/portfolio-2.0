@@ -7,13 +7,14 @@
    text, deep tones carry white text (all ≥ 4.5:1).
 ------------------------------------------------------------------- */
 :root {
-  --color-page: #e7e6e3;
-  --color-paper: #f6f5f2;
-  --color-ink: #151515;
+  --color-page: #e6e6e6;
+  --color-paper: #ffffff;
+  --color-ink: #1b1b1b;
   --color-ink-muted: #5c5b57;
   --color-line: #d8d6d0;
 
   --block-paper: var(--color-paper);
+  --block-signal: #e82c2f;
   --block-cobalt-soft: #c9d4fa;
   --block-sage-soft: #bfdccb;
   --block-orchid-soft: #e6cdea;
@@ -23,13 +24,17 @@
   --block-plum-deep: #8e3a8a;
   --block-oxblood-deep: #7a1e2b;
 
-  --frame-grey: #ebeae6;
+  --frame-grey: #eaeaea;
   --frame-blue: #dfe5fb;
   --frame-dark: #1e1b26;
   --frame-pink: #fcebf1;
 
-  --radius-tile: 12px;
-  --gap: 12px;
+  /* Sharp corners everywhere; blocks are separated by a thin black stroke */
+  --radius-tile: 0px;
+  --gap: 1px;
+  --stroke: #000;
+  /* Inner padding of blocks and panels: 40px on a 1728px screen */
+  --pad: clamp(1.5rem, 2.31vw, 2.5rem);
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -60,6 +65,7 @@ body {
   transition: background-color 400ms var(--ease-out), color 400ms var(--ease-out);
 }
 [data-tone="paper"] { --tone-bg: var(--block-paper); --tone-fg: var(--color-ink); }
+[data-tone="signal"] { --tone-bg: var(--block-signal); --tone-fg: var(--color-ink); }
 [data-tone="cobalt-soft"] { --tone-bg: var(--block-cobalt-soft); --tone-fg: #1a2e7a; }
 [data-tone="sage-soft"] { --tone-bg: var(--block-sage-soft); --tone-fg: #173f2c; }
 [data-tone="orchid-soft"] { --tone-bg: var(--block-orchid-soft); --tone-fg: #4e1f52; }
@@ -69,12 +75,32 @@ body {
 [data-tone="plum-deep"] { --tone-bg: var(--block-plum-deep); --tone-fg: #fff; }
 [data-tone="oxblood-deep"] { --tone-bg: var(--block-oxblood-deep); --tone-fg: #fff; }
 
+/* Type scale from Figma (sizes at 1728px): eyebrow 24 · display 60 · body 20 */
+.t-eyebrow {
+  font-size: clamp(1rem, 1.39vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+.t-display {
+  font-size: clamp(2.25rem, 3.47vw, 3.75rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+.t-body {
+  font-size: clamp(1rem, 1.16vw, 1.25rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
 /* Returning visitors with a saved layout: hide the grid until it is applied */
 .bento-pending [data-bento] { opacity: 0; }
 [data-bento] { transition: opacity 250ms ease; }
 
 :focus-visible {
-  outline: 2px solid var(--block-cobalt-deep);
+  outline: 2px solid var(--stroke);
   outline-offset: 3px;
 }
 

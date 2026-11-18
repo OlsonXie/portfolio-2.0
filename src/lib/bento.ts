@@ -1,7 +1,8 @@
-export type TileId = "picture" | "works" | "links" | "about" | "extras";
+export type TileId = "picture" | "works" | "about";
 
 export const TONES = [
   "paper",
+  "signal",
   "cobalt-soft",
   "sage-soft",
   "orchid-soft",
@@ -14,7 +15,8 @@ export const TONES = [
 export type Tone = (typeof TONES)[number];
 
 export const TONE_LABEL: Record<Tone, string> = {
-  paper: "Paper",
+  paper: "White",
+  signal: "Signal red",
   "cobalt-soft": "Cobalt mist",
   "sage-soft": "Sage",
   "orchid-soft": "Orchid",
@@ -31,60 +33,55 @@ export type BentoState = {
   photo: number;
 };
 
-/** Tiles that span two columns on desktop */
-export const WIDE: Partial<Record<TileId, boolean>> = { works: true };
+/** The tall tile fills a whole column (both rows) on desktop */
+export const TALL: TileId = "works";
 
 /** Which tile opens which route */
 export const TILE_ROUTE: Partial<Record<TileId, string>> = {
   works: "/work",
   about: "/about",
-  extras: "/other",
 };
 
 export const DEFAULT_STATE: BentoState = {
-  order: ["picture", "works", "links", "about", "extras"],
+  order: ["picture", "works", "about"],
   tones: {
     picture: "paper",
     works: "paper",
-    links: "paper",
-    about: "cobalt-soft",
-    extras: "paper",
+    about: "signal",
   },
   photo: 0,
 };
 
-export const STORAGE_KEY = "bento:v1";
+export const STORAGE_KEY = "bento:v2";
 
 export function routeToTile(pathname: string): TileId | null {
   if (pathname.startsWith("/work")) return "works";
   if (pathname.startsWith("/about")) return "about";
-  if (pathname.startsWith("/other")) return "extras";
   return null;
 }
 
+/** Column widths from the Figma frame: 650 + 1078 */
+export const NARROW = "650fr";
+export const WIDE = "1078fr";
+
 /**
- * Simulates CSS grid `dense` auto-placement for a 3×2 grid so we know
- * which column each tile starts in. Used to decide which side the
- * open panel expands toward.
+ * Two columns, two rows. The tall tile takes a whole column — the left one if
+ * it comes first in the visitor's order, otherwise the right — and the other
+ * two tiles stack in the remaining column, in order.
  */
-export function placeTiles(order: TileId[], cols = 3) {
-  const taken = new Set<string>();
-  const pos: Record<string, { col: number; row: number }> = {};
+export function placeTiles(order: TileId[]) {
+  const tallCol = order[0] === TALL ? 0 : 1;
+  const pos = {} as Record<TileId, { col: number; row: number; tall: boolean }>;
+  let row = 0;
   for (const id of order) {
-    const span = WIDE[id] ? 2 : 1;
-    outer: for (let row = 0; row < 10; row++) {
-      for (let col = 0; col + span <= cols; col++) {
-        const cells = Array.from({ length: span }, (_, i) => `${row}:${col + i}`);
-        if (cells.every((c) => !taken.has(c))) {
-          cells.forEach((c) => taken.add(c));
-          pos[id] = { col, row };
-          break outer;
-        }
-      }
-    }
+    if (id === TALL) pos[id] = { col: tallCol, row: 0, tall: true };
+    else pos[id] = { col: 1 - tallCol, row: row++, tall: false };
   }
-  return pos as Record<TileId, { col: number; row: number }>;
+  return { pos, tallCol };
 }
+
+/** grid-template-columns with the wide column at `wideCol` */
+export const columns = (wideCol: number) => (wideCol === 0 ? `${WIDE} ${NARROW}` : `${NARROW} ${WIDE}`);
 
 export function parseState(raw: string | null): BentoState | null {
   if (!raw) return null;

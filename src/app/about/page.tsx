@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Label, PanelNav } from "@/components/PanelNav";
 import { InstaCarousel } from "@/components/about/InstaCarousel";
 import { Turntable } from "@/components/about/Turntable";
+import { site } from "@/lib/site";
 
 export const metadata: Metadata = { title: "About" };
 
@@ -9,8 +10,9 @@ export default function About() {
   return (
     <div>
       <PanelNav />
-      <div className="px-6 pb-16 lg:px-10 lg:pb-24">
-        <h1 className="pt-10 text-[clamp(3rem,5vw,4.5rem)] leading-none tracking-tight lg:pt-20">About me</h1>
+      <div className="px-[var(--pad)] pb-16 lg:pb-24">
+        <p className="t-eyebrow pt-6 lg:pt-10">About me</p>
+        <h1 className="t-display mt-3">Let me introduce myself…</h1>
 
         <div className="mt-12 grid gap-10 sm:grid-cols-2 sm:gap-12 lg:mt-20">
           <section>
@@ -30,6 +32,24 @@ export default function About() {
               consistency — and explore how AI changes the way those systems are made and maintained. If you&rsquo;re
               working on something like that, let&rsquo;s talk.
             </p>
+            <ul className="mt-5 flex flex-wrap gap-2">
+              {[
+                ["LinkedIn", site.links.linkedin],
+                ["Email", site.links.email],
+                ["Instagram", site.links.instagram],
+              ].map(([label, href]) => (
+                <li key={label}>
+                  <a
+                    href={href}
+                    {...(href.startsWith("http") ? { target: "_blank", rel: "noreferrer" } : {})}
+                    className="inline-flex items-center gap-2 border border-[var(--stroke)] px-4 py-2 font-semibold transition hover:bg-ink hover:text-white"
+                  >
+                    {label}
+                    <span aria-hidden>↗</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
           </section>
         </div>
 

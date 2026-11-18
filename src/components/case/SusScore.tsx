@@ -52,9 +52,9 @@ export function SusScore() {
       </div>
 
       {/* Scale */}
-      <div className="rounded-[var(--radius-tile)] bg-[var(--frame-grey)] px-5 py-6 lg:px-8" aria-hidden>
-        <div className="relative h-3 rounded-full bg-gradient-to-r from-[#e4b3b6] via-[#efe0a8] to-[#9fd1b5]">
-          <div className="absolute inset-y-[-6px] rounded-full border-2 border-[#b4232f] bg-[#b4232f]/15" style={{ left: "50%", width: "24%" }} />
+      <div className="bg-[var(--frame-grey)] px-5 py-6 lg:px-8" aria-hidden>
+        <div className="relative h-3 bg-gradient-to-r from-[#e4b3b6] via-[#efe0a8] to-[#9fd1b5]">
+          <div className="absolute inset-y-[-6px] border-2 border-[#b4232f] bg-[#b4232f]/15" style={{ left: "50%", width: "24%" }} />
           <div className="absolute top-1/2 size-5 -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-white bg-[#1d6446] shadow" style={{ left: "81.6%" }} />
         </div>
         <div className="mt-3 flex text-xs text-ink-muted lg:text-sm">
@@ -95,7 +95,7 @@ function ScoreCard({
             width={img.w}
             height={img.h}
             sizes="160px"
-            className="h-[220px] w-auto rounded-md shadow-[0_10px_24px_-10px_rgba(0,0,0,0.35)] ring-1 ring-black/5 lg:h-[260px]"
+            className="h-[220px] w-auto shadow-[0_4px_12px_rgba(0,0,0,0.2)] lg:h-[260px]"
           />
         ))}
       </div>

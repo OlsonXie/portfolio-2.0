@@ -15,10 +15,10 @@ export function CaseView({ c }: { c: Case }) {
   return (
     <article>
       <PanelNav back={{ href: "/work", label: "Back to projects" }} />
-      <div className="px-6 pb-16 lg:px-10 lg:pb-24">
-        <header className="pt-10 lg:pt-20">
-          <h1 className="text-[clamp(3rem,5vw,4.5rem)] leading-none tracking-tight">{c.title}</h1>
-          <p className="mt-3 text-lg font-medium lg:text-xl">{c.client}</p>
+      <div className="px-[var(--pad)] pb-16 lg:pb-24">
+        <header className="pt-6 lg:pt-10">
+          <p className="t-eyebrow">{c.client}</p>
+          <h1 className="t-display mt-3">{c.title}</h1>
         </header>
 
         <hr className="my-10 border-line lg:my-20" />
@@ -101,7 +101,7 @@ export function CaseView({ c }: { c: Case }) {
                           width={img.w}
                           height={img.h}
                           sizes="(min-width: 1024px) 14vw, 45vw"
-                          className={`h-auto w-full ${b.plain ? "" : "rounded-lg shadow-[0_14px_30px_-12px_rgba(0,0,0,0.4)]"}`}
+                          className={`h-auto w-full ${b.plain ? "" : "shadow-[0_4px_12px_rgba(0,0,0,0.2)]"}`}
                         />
                       ))}
                     </div>

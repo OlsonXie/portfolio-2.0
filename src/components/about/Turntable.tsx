@@ -141,7 +141,7 @@ export function Turntable() {
           style={hit(NEXT.x, NEXT.y, 22)}
         />
         <label
-          className="absolute rounded-md focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[var(--block-cobalt-deep)]"
+          className="absolute focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-[var(--block-cobalt-deep)]"
           style={box(FADER.x - 20, FADER.top - 10, 40, FADER.bottom - FADER.top + 20)}
         >
           <span className="sr-only">Volume</span>
@@ -255,9 +255,9 @@ function TurntableArt({ playing, volume }: { playing: boolean; volume: number })
       </defs>
 
       {/* plinth */}
-      <rect width={VB.w} height={VB.h} rx="12" fill="url(#tt-metal)" />
-      <rect width={VB.w} height={VB.h} rx="12" fill="url(#tt-brush)" />
-      <rect x="0.5" y="0.5" width={VB.w - 1} height={VB.h - 1} rx="11.5" fill="none" stroke="#fff" strokeOpacity="0.6" />
+      <rect width={VB.w} height={VB.h} fill="url(#tt-metal)" />
+      <rect width={VB.w} height={VB.h} fill="url(#tt-brush)" />
+      <rect x="0.5" y="0.5" width={VB.w - 1} height={VB.h - 1} fill="none" stroke="#fff" strokeOpacity="0.6" />
 
       {/* platter */}
       <circle cx={REC.x} cy={REC.y + 4} r={REC.r} fill="#000" opacity="0.25" />

@@ -23,7 +23,7 @@ export function InstaCarousel() {
 
   return (
     <figure>
-      <div className="group relative aspect-[4/5] overflow-hidden rounded-[var(--radius-tile)] bg-line">
+      <div className="group relative aspect-[4/5] overflow-hidden bg-line">
         <AnimatePresence initial={false}>
           <motion.div
             key={pics[i].src}

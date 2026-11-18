@@ -53,11 +53,11 @@ export function useBentoState() {
     setState((s) => ({ ...s, tones: { ...s.tones, [id]: tone } }));
   }, []);
 
-  const nextPhoto = useCallback((count: number) => {
-    setState((s) => ({ ...s, photo: (s.photo + 1) % count }));
+  const setPhoto = useCallback((photo: number) => {
+    setState((s) => ({ ...s, photo }));
   }, []);
 
   const reset = useCallback(() => setState(DEFAULT_STATE), []);
 
-  return { state, swap, move, setTone, nextPhoto, reset };
+  return { state, swap, move, setTone, setPhoto, reset };
 }

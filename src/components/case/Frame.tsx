@@ -8,7 +8,7 @@ const BG: Record<FrameBg, string> = {
   pink: "var(--frame-pink)",
 };
 
-/** The image frame every case uses: rounded, tinted background, image centered inside */
+/** The image frame every case uses: sharp corners, tinted background, image centered inside */
 export function Frame({
   bg,
   children,
@@ -19,7 +19,7 @@ export function Frame({
   className?: string;
 }) {
   return (
-    <figure className={`relative overflow-hidden rounded-[var(--radius-tile)] ${className}`} style={{ background: BG[bg] }}>
+    <figure className={`relative overflow-hidden ${className}`} style={{ background: BG[bg] }}>
       {children}
     </figure>
   );
@@ -52,7 +52,7 @@ export function FrameImage({
         height={image.h}
         sizes={sizes}
         priority={priority}
-        className={`h-auto max-h-full w-auto max-w-full ${shadow ? "rounded-md shadow-[0_18px_40px_-12px_rgba(0,0,0,0.45)]" : ""} ${blend ? "mix-blend-multiply" : ""}`}
+        className={`h-auto max-h-full w-auto max-w-full ${shadow ? "shadow-[0_4px_12px_rgba(0,0,0,0.2)]" : ""} ${blend ? "mix-blend-multiply" : ""}`}
       />
     </div>
   );
