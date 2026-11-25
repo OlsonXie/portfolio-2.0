@@ -148,11 +148,12 @@ export const cases: Case[] = [
         body: "Owned the design system strategically and operationally: built and maintained the component library, style guide, and interaction patterns, and worked directly with cross-functional teams to keep design and delivery aligned end to end. During the same period I also designed interfaces for handheld devices, UI for controlling the cab's interior atmosphere, and screens for advanced driver-assistance (ADAS) systems.",
       },
       {
-        kind: "slideshow",
-        images: [
-          w("scania-slide1", "Driver at night with the Smart Dash displays lighting up the cab", 1920, 941),
-          w("scania-slide2", "Dark cab interior with ambient lighting around the driver's seat", 1920, 941),
-        ],
+        kind: "frame",
+        layout: "full",
+        bg: "dark",
+        fit: "cover",
+        natural: true,
+        image: w("scania-slide1", "Driver at night with the Smart Dash displays lighting up the cab", 1920, 941),
       },
       {
         kind: "frame",
