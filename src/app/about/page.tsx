@@ -28,9 +28,10 @@ export default function About() {
           <section>
             <Label>What&rsquo;s next?</Label>
             <p className="mt-3 text-[17px] leading-relaxed lg:text-lg">
-              You tell me. I want to keep building design systems that help large teams ship faster without losing
-              consistency — and explore how AI changes the way those systems are made and maintained. If you&rsquo;re
-              working on something like that, let&rsquo;s talk.
+              You tell me. As a product designer, I want to keep making the best possible products — digital or any
+              other kind — with systems thinking at the core: solid foundations that let teams ship faster without
+              losing consistency. I&rsquo;m also curious about how AI changes the way products and systems are made.
+              If you&rsquo;re working on something like that, let&rsquo;s talk.
             </p>
             <ul className="mt-5 flex flex-wrap gap-2">
               {[
