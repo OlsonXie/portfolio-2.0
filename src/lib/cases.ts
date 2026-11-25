@@ -7,15 +7,21 @@
  *  - layout "pair":  two frames side by side
  *  - layout "row":   one frame with several images in a row (e.g. phone screens)
  *  - fit "cover":    the image fills the frame edge to edge (photos)
+ *  - video:          a looping clip (former GIFs) contained in a full frame
+ *  - slideshow:      swipe/click between images at their own aspect ratio
  */
 
 export type Img = { src: string; alt: string; w: number; h: number };
-export type FrameBg = "grey" | "blue" | "dark" | "pink";
+/** An image or a looping clip (video + poster) in a pair, with its own fit */
+export type Media = Img & { video?: string; poster?: string; fit?: "contain" | "cover" };
+export type FrameBg = "grey" | "light" | "blue" | "dark" | "pink";
 
 export type Block =
   | { kind: "text"; label: string; body: string }
-  | { kind: "frame"; layout: "full"; bg: FrameBg; image: Img; fit?: "contain" | "cover"; shadow?: boolean }
-  | { kind: "frame"; layout: "pair"; bg: FrameBg; images: [Img, Img]; fit?: "contain" | "cover"; blend?: boolean }
+  | { kind: "frame"; layout: "full"; bg: FrameBg; image: Img; fit?: "contain" | "cover"; shadow?: boolean; natural?: boolean }
+  | { kind: "frame"; layout: "pair"; bg: FrameBg; images: [Media, Media]; fit?: "contain" | "cover"; blend?: boolean }
+  | { kind: "video"; bg: FrameBg; video: string; poster: string; alt: string; w: number; h: number }
+  | { kind: "slideshow"; images: Img[] }
   | { kind: "frame"; layout: "row"; bg: FrameBg; images: Img[]; plain?: boolean }
   | { kind: "illustrations"; images: Img[] }
   | { kind: "sus" };
@@ -95,6 +101,15 @@ export const cases: Case[] = [
         ],
       },
       {
+        kind: "video",
+        bg: "light",
+        video: "/work/ssab-loading.mp4",
+        poster: "/work/ssab-loading.webp",
+        alt: "Wear IQ mobile app loading equipment data with an animated illustration",
+        w: 914,
+        h: 956,
+      },
+      {
         kind: "text",
         label: "Impact",
         body: "In just 4–5 months, delivered a unified cross-platform tool built directly around SSAB's stated goals — reducing unplanned breakdowns and maintenance cost via better reporting and parts optimization — validated with feedback from real users along the way.",
@@ -111,10 +126,17 @@ export const cases: Case[] = [
     timeline: "2023 – 2025",
     description:
       "Strategic and operational lead for the design system behind Scania's Smart Dash project, ensuring consistent design standards and a seamless final product across a multibrand, cross-functional org.",
-    cover: w("scania-cab", "Scania cab interior with the Smart Dash displays", 1600, 900),
-    listCover: { kind: "single", image: w("scania-cab", "Scania cab interior with the Smart Dash displays", 1600, 900) },
+    cover: w("scania-hero", "Scania cab interior with the Smart Dash displays", 2000, 1125),
+    listCover: { kind: "single", image: w("scania-hero", "Scania cab interior with the Smart Dash displays", 2000, 1125) },
     blocks: [
-      { kind: "frame", layout: "full", bg: "grey", fit: "cover", image: w("scania-trucks", "Four Scania trucks lined up in front of a forest at dusk", 2000, 1334) },
+      {
+        kind: "frame",
+        layout: "full",
+        bg: "dark",
+        fit: "cover",
+        natural: true,
+        image: w("scania-split", "Smart Dash instrument cluster editing side panels, next to the centre display showing a route", 2200, 1194),
+      },
       {
         kind: "text",
         label: "Challenge",
@@ -123,7 +145,14 @@ export const cases: Case[] = [
       {
         kind: "text",
         label: "Solution",
-        body: "Owned the design system strategically and operationally: built and maintained the component library, style guide, and interaction patterns, and worked directly with cross-functional teams to keep design and delivery aligned end to end.",
+        body: "Owned the design system strategically and operationally: built and maintained the component library, style guide, and interaction patterns, and worked directly with cross-functional teams to keep design and delivery aligned end to end. During the same period I also designed interfaces for handheld devices, UI for controlling the cab's interior atmosphere, and screens for advanced driver-assistance (ADAS) systems.",
+      },
+      {
+        kind: "slideshow",
+        images: [
+          w("scania-slide1", "Driver at night with the Smart Dash displays lighting up the cab", 1920, 941),
+          w("scania-slide2", "Dark cab interior with ambient lighting around the driver's seat", 1920, 941),
+        ],
       },
       {
         kind: "frame",
@@ -210,11 +239,11 @@ export const cases: Case[] = [
     description:
       "A contemporary legal-tech startup needed more than a logo — a bold, playful identity system and product design language to stand apart from competitors and carry the brand into a full product.",
     cover: w("blinka-identity", "Blinka logo, colour palette and typefaces", 1920, 1240),
-    listCover: { kind: "row", plain: true, images: [
-          w("blinka-phone1", "Blinka app home screen listing agreements", 587, 1087),
-          w("blinka-phone2", "Will flow showing progress through steps", 587, 1087),
-          w("blinka-phone4", "Inheritance split shown as a pie chart", 587, 1087),
-          w("blinka-phone3", "Archive of signed documents", 587, 1087),
+    listCover: { kind: "row", images: [
+          w("blinka-screen1", "Blinka app home screen listing agreements", 780, 1688),
+          w("blinka-screen2", "Will flow showing progress through steps", 780, 1688),
+          w("blinka-screen3", "Inheritance split shown as a pie chart", 780, 1688),
+          w("blinka-screen4", "Archive of signed documents", 780, 1688),
         ] },
     blocks: [
       { kind: "frame", layout: "full", bg: "pink", fit: "cover", image: w("blinka-identity", "Blinka logo, symbol, colour palette and typefaces", 1920, 1240) },
@@ -228,11 +257,11 @@ export const cases: Case[] = [
         label: "Solution",
         body: "Designed a full visual identity system — logo, animation, custom icons, color palette, typography — and extended it into a complete Figma design system so the team could build the entire product from it.",
       },
-      { kind: "frame", layout: "row", bg: "pink", plain: true, images: [
-          w("blinka-phone1", "Blinka app home screen listing agreements", 587, 1087),
-          w("blinka-phone2", "Will flow showing progress through steps", 587, 1087),
-          w("blinka-phone4", "Inheritance split shown as a pie chart", 587, 1087),
-          w("blinka-phone3", "Archive of signed documents", 587, 1087),
+      { kind: "frame", layout: "row", bg: "pink", images: [
+          w("blinka-screen1", "Blinka app home screen listing agreements", 780, 1688),
+          w("blinka-screen2", "Will flow showing progress through steps", 780, 1688),
+          w("blinka-screen3", "Inheritance split shown as a pie chart", 780, 1688),
+          w("blinka-screen4", "Archive of signed documents", 780, 1688),
         ] },
       {
         kind: "frame",
@@ -240,8 +269,16 @@ export const cases: Case[] = [
         bg: "pink",
         fit: "cover",
         images: [
-          w("blinka-icons", "Custom Blinka icon set", 915, 957),
-          w("blinka-pattern", "Brand pattern built from Blinka icons", 1920, 1240),
+          { src: "/work/blinka-icons.svg", alt: "Custom Blinka icon set", w: 757, h: 739, fit: "contain" },
+          {
+            src: "/work/blinka-logo.webp",
+            video: "/work/blinka-logo.mp4",
+            poster: "/work/blinka-logo.webp",
+            alt: "Animated Blinka logo: the symbol unfolds into the wordmark",
+            w: 914,
+            h: 956,
+            fit: "cover",
+          },
         ],
       },
       {

@@ -3,6 +3,7 @@ import type { FrameBg, Img } from "@/lib/cases";
 
 const BG: Record<FrameBg, string> = {
   grey: "var(--frame-grey)",
+  light: "#e6e6e6",
   blue: "var(--frame-blue)",
   dark: "var(--frame-dark)",
   pink: "var(--frame-pink)",
@@ -13,13 +14,15 @@ export function Frame({
   bg,
   children,
   className = "",
+  style,
 }: {
   bg: FrameBg;
   children: React.ReactNode;
   className?: string;
+  style?: React.CSSProperties;
 }) {
   return (
-    <figure className={`relative overflow-hidden ${className}`} style={{ background: BG[bg] }}>
+    <figure className={`relative overflow-hidden ${className}`} style={{ background: BG[bg], ...style }}>
       {children}
     </figure>
   );
@@ -52,6 +55,7 @@ export function FrameImage({
         height={image.h}
         sizes={sizes}
         priority={priority}
+        unoptimized={image.src.endsWith(".svg")}
         className={`h-auto max-h-full w-auto max-w-full ${shadow ? "shadow-[0_4px_12px_rgba(0,0,0,0.2)]" : ""} ${blend ? "mix-blend-multiply" : ""}`}
       />
     </div>

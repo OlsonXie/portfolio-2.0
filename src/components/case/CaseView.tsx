@@ -4,6 +4,8 @@ import { Case, cases } from "@/lib/cases";
 import { Label, PanelNav } from "@/components/PanelNav";
 import { Frame, FrameImage } from "./Frame";
 import { SusScore } from "./SusScore";
+import { LoopVideo } from "@/components/LoopVideo";
+import { Slideshow } from "@/components/Slideshow";
 
 const FULL = "(min-width: 1024px) 60vw, 100vw";
 const HALF = "(min-width: 1024px) 30vw, 100vw";
@@ -69,10 +71,27 @@ export function CaseView({ c }: { c: Case }) {
                     ))}
                   </Frame>
                 );
+              case "video":
+                return (
+                  <Frame key={i} bg={b.bg} className="flex aspect-[1052/680] items-center justify-center">
+                    <LoopVideo src={b.video} poster={b.poster} label={b.alt} w={b.w} h={b.h} className="h-full w-auto max-w-full" />
+                  </Frame>
+                );
+              case "slideshow":
+                return (
+                  <Frame key={i} bg="dark" className="relative" style={{ aspectRatio: `${b.images[0].w} / ${b.images[0].h}` }}>
+                    <Slideshow images={b.images} sizes={FULL} label="Choose image" />
+                  </Frame>
+                );
               case "frame":
                 if (b.layout === "full") {
                   return (
-                    <Frame key={i} bg={b.bg} className="aspect-[1052/680]">
+                    <Frame
+                      key={i}
+                      bg={b.bg}
+                      className={b.natural ? "" : "aspect-[1052/680]"}
+                      style={b.natural ? { aspectRatio: `${b.image.w} / ${b.image.h}` } : undefined}
+                    >
                       <FrameImage image={b.image} fit={b.fit} shadow={b.shadow} sizes={FULL} priority={i === 0} />
                     </Frame>
                   );
@@ -82,7 +101,18 @@ export function CaseView({ c }: { c: Case }) {
                     <div key={i} className="grid gap-[var(--gap)] sm:grid-cols-2">
                       {b.images.map((img) => (
                         <Frame key={img.src} bg={b.bg} className="aspect-[4/5]">
-                          <FrameImage image={img} fit={b.fit} blend={b.blend} sizes={HALF} />
+                          {img.video ? (
+                            <LoopVideo
+                              src={img.video}
+                              poster={img.poster ?? img.src}
+                              label={img.alt}
+                              w={img.w}
+                              h={img.h}
+                              className={`absolute inset-0 h-full w-full ${(img.fit ?? b.fit) === "cover" ? "object-cover" : "object-contain"}`}
+                            />
+                          ) : (
+                            <FrameImage image={img} fit={img.fit ?? b.fit} blend={b.blend} sizes={HALF} />
+                          )}
                         </Frame>
                       ))}
                     </div>

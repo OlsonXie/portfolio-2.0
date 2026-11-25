@@ -73,12 +73,17 @@ export default function WorkList() {
 
           <ul className="grid gap-[clamp(1.5rem,2.31vw,2.5rem)] sm:grid-cols-2">
             {otherProjects.map((p) => {
+              const external = p.href?.startsWith("http");
               const inner = (
                 <>
-                  <Frame bg="grey" className="grid aspect-[478/300] place-items-center">
-                    <span aria-hidden className="text-[clamp(3.5rem,6vw,6rem)] leading-none text-ink/80 transition duration-500 group-hover:scale-110">
-                      {p.mark}
-                    </span>
+                  <Frame bg="grey" className="aspect-[478/300]">
+                    <Image
+                      src={p.thumb.src}
+                      alt={p.thumb.alt}
+                      fill
+                      sizes="(min-width: 1024px) 30vw, (min-width: 640px) 50vw, 100vw"
+                      className="object-cover transition duration-500 group-hover:scale-[1.03]"
+                    />
                     {p.status && (
                       <span className="absolute left-4 top-4 border border-[var(--stroke)] bg-white px-2.5 py-1 text-xs font-semibold uppercase tracking-wide">
                         {p.status}
@@ -88,7 +93,7 @@ export default function WorkList() {
                   <div className="mt-6">
                     <h3 className="t-display underline-offset-[0.12em] group-hover:underline">
                       {p.title}
-                      {p.href && <span aria-hidden className="ml-2 text-[0.5em] align-[0.35em]">↗</span>}
+                      {external && <span aria-hidden className="ml-2 text-[0.5em] align-[0.35em]">↗</span>}
                     </h3>
                     <p className="t-body mt-1">{p.body}</p>
                   </div>
@@ -96,12 +101,16 @@ export default function WorkList() {
               );
               return (
                 <li key={p.title}>
-                  {p.href ? (
+                  {!p.href ? (
+                    <div className="group">{inner}</div>
+                  ) : external ? (
                     <a href={p.href} target="_blank" rel="noreferrer" className="group block">
                       {inner}
                     </a>
                   ) : (
-                    <div className="group">{inner}</div>
+                    <Link href={p.href} className="group block">
+                      {inner}
+                    </Link>
                   )}
                 </li>
               );
