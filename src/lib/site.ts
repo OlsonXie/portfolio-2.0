@@ -19,9 +19,8 @@ export const site = {
 
 export const photos = [
   { src: "/photos/swim.webp", alt: "Oscar half-submerged in clear sea water, smiling at the camera", w: 1400, h: 1225 },
-  { src: "/photos/portrait.webp", alt: "Portrait of Oscar smiling, in an olive jacket", w: 1400, h: 1400 },
-  { src: "/photos/snow.webp", alt: "Oscar in goggles taking a selfie in deep snow on a mountain", w: 1400, h: 1225 },
-  { src: "/photos/mountain.webp", alt: "Oscar in a climbing helmet and sunglasses with jagged peaks behind him", w: 1200, h: 1600 },
+  { src: "/photos/climb.webp", alt: "Oscar in a climbing helmet taking a selfie through a rock arch high above a green valley", w: 1400, h: 1225 },
+  { src: "/photos/ski-tour.webp", alt: "Oscar in a ski helmet and goggles with skis on his back in front of snowy peaks", w: 1179, h: 1563 },
 ];
 
 export const instagram = Array.from({ length: 13 }, (_, i) => ({
